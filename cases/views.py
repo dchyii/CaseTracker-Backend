@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Appointment
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
+from rest_framework.decorators import api_view
 from .serializers import AppointmentSerializer
 
 # Create your views here.

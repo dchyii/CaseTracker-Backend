@@ -23,5 +23,5 @@ router.register(r'appointment', AppointmentViewSet)
 
 urlpatterns = [
     path('cases/', include(router.urls)),
-    path('', admin.site.urls),
+    path('admin/', admin.site.urls),
 ]
