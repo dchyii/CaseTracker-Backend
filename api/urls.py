@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from cases.views import AppointmentViewSet
+from cases.views import AppointmentViewSet, UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'appointment', AppointmentViewSet)
+router.register(r'users', UserViewSet)
 
 urlpatterns = [
-    path('cases/', include(router.urls)),
+    path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
