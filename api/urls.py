@@ -38,6 +38,7 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     # path('api/', include(router.urls)),
-    path('api/', include('cases.url')),
     path('admin/', admin.site.urls),
+    path('api/', include('cases.url')),
+    path('token/', include('accounts.url'))
 ]
