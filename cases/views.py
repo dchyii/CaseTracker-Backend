@@ -55,7 +55,7 @@ class ContractingViewSet(viewsets.ModelViewSet):
 class CaseViewSet(viewsets.ModelViewSet):
     queryset = Case.objects.all()
     serializer_class = CaseSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
