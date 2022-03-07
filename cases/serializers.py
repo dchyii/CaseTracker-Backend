@@ -58,3 +58,11 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
+class DashboardSerializer(serializers.ModelSerializer):
+    # cases = serializers.StringRelatedField(many=True)
+    # print(cases)
+
+    class Meta:
+        model = Case
+        fields = '__all__'
