@@ -151,10 +151,10 @@ class Case(models.Model):
     current_step_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="current_step_user")
     next_step = models.CharField(max_length=20, choices=STEP, blank=True, null=True)
     next_step_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="next_step_user", blank=True, null=True)
-    planning = models.ForeignKey(Planning, on_delete=models.CASCADE, blank=True, null=True)
-    bidding = models.ForeignKey(Bidding, on_delete=models.CASCADE, blank=True, null=True)
-    approval = models.ForeignKey(Approval, on_delete=models.CASCADE)
-    contracting = models.ForeignKey(Contracting, on_delete=models.CASCADE)
+    planning = models.OneToOneField(Planning, on_delete=models.CASCADE, blank=True, null=True)
+    bidding = models.OneToOneField(Bidding, on_delete=models.CASCADE, blank=True, null=True)
+    approval = models.OneToOneField(Approval, on_delete=models.CASCADE)
+    contracting = models.OneToOneField(Contracting, on_delete=models.CASCADE)
 
     def __str__(self):
         return "Case ID: " + str(self.id)
