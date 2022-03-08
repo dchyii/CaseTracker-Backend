@@ -1,5 +1,6 @@
 from urllib import request
 from django.http import QueryDict
+from django.db.models import Q
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions, status
@@ -70,7 +71,8 @@ class DashboardCasesView(ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Case.objects.filter(current_step_user=self.request.user)
+        # return Case.objects.filter(current_step_user=self.request.user)
+        return Case.objects.filter(Q(current_step_user=self.request.user) | Q(staffer=self.request.user))
 
     # def perform_create(self, serializer):
     #     serializer.save(staffer=self.request.user)
