@@ -149,6 +149,7 @@ class Case(models.Model):
     current_status = models.CharField(max_length=20, choices=STATUS)
     current_step = models.CharField(max_length=20, choices=STEP)
     current_step_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="current_step_user")
+    current_step_due_date = models.DateField(auto_now=False, auto_now_add=False, blank=False, null=False)
     next_step = models.CharField(max_length=20, choices=STEP, blank=True, null=True)
     next_step_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="next_step_user", blank=True, null=True)
     planning = models.OneToOneField(Planning, on_delete=models.CASCADE, blank=True, null=True)
