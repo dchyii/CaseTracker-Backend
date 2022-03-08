@@ -37,8 +37,8 @@ class Team(models.Model):
 
 class UserDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE)
-    domain = models.OneToOneField(Domain, on_delete=models.CASCADE)
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
