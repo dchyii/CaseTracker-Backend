@@ -19,7 +19,8 @@ class Domain(models.Model):
     DOMAINS = (
         ('services', 'Services'),
         ('infocomm tech', 'Infocomm Tech'),
-        ('general goods', 'General Goods')
+        ('general goods', 'General Goods'),
+        ('admin', 'Admin')
     )
     name = models.CharField(max_length=20, choices=DOMAINS)
 
@@ -108,9 +109,13 @@ class Step(models.Model):
     staffer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="staffer_steps")
     res_party = models.ForeignKey(User, on_delete=models.CASCADE, related_name="res_party_steps", blank=True, null=True)
     completed_date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return "Step ID: " + str(self.id)
+    
+    class Meta:
+        ordering = ["created_date"]
 
 class Comment(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE)
