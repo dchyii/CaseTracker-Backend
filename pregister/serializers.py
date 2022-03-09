@@ -12,10 +12,10 @@ class CaseSerializer(serializers.ModelSerializer):
     #     many=True,
     #     read_only=True
     # )
-    steps = StepSerializer(many=True)
+    steps = StepSerializer(many=True, read_only=True)
     
     class Meta:
         model = Case
         fields = '__all__'
 
-        depth = 1
+        # depth = 1

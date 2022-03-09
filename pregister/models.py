@@ -48,11 +48,39 @@ class UserDetails(models.Model):
         return str(self.user) + "'s details"
 
 class Case(models.Model):
+    PURCHASE_TYPE = (
+        ('O', 'O'),
+        ('L', 'L'),
+        ('D', 'D'),
+        ('V', 'V'),
+        ('N', 'N'),
+        )
+    APPROVAL_TYPE = (
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('D', 'D'),
+        )
+    CONTRACTING_TYPE = (
+        ('C', 'C'),
+        ('D', 'D'),
+        ('E', 'E'),
+        ('M', 'M'),
+        )
+
     title = models.CharField(max_length=50)
     value = models.PositiveIntegerField()
     folder_link = models.URLField(max_length=2000)
     staffer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="project_staffer")
     need_by_date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    current_res_party = models.ForeignKey(User, on_delete=models.CASCADE, related_name="project_res_party")
+    purchase_type = models.CharField(max_length=5, choices=PURCHASE_TYPE)
+    planning_deadline = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    bidding_deadline = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    approval_type = models.CharField(max_length=5, choices=APPROVAL_TYPE)
+    approval_deadline = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    contracting_type = models.CharField(max_length=5, choices=CONTRACTING_TYPE)
+    contracting_deadline = models.DateField(auto_now=False, auto_now_add=False)
 
     def __str__(self):
         return "Case ID: " + str(self.id)
@@ -75,12 +103,10 @@ class Step(models.Model):
     )
 
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name="steps")
-    type = models.CharField(max_length=1, blank=True, null=True)
     stage = models.CharField(max_length=20, choices=STAGE)
     step = models.CharField(max_length=20, choices=STEP)
     staffer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="staffer_steps")
     res_party = models.ForeignKey(User, on_delete=models.CASCADE, related_name="res_party_steps", blank=True, null=True)
-    stage_deadline = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     completed_date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
 
     def __str__(self):
