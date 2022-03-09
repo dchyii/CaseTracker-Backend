@@ -4,7 +4,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
-from cases.models import Domain, UserDetails, Appointment
+# from cases.models import Domain, UserDetails, Appointment
+from pregister.models import Domain, UserDetails, Appointment
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
