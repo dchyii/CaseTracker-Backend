@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.db.models import Q
 from rest_framework import permissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from .models import Case, Step
+from .models import Case, Step, UserDetails
 from django.contrib.auth.models import User
-from .serializers import CaseSerializer, StepSerializer
+from .serializers import CaseSerializer, StepSerializer, UserDetailsSerializer
 
 # Create your views here.
 class CaseListView(ListCreateAPIView):
@@ -46,3 +46,15 @@ class StepDetailsView(RetrieveUpdateDestroyAPIView):
     
     def get_queryset(self):
         return Step.objects.filter(Q(staffer=self.request.user) | Q(res_party=self.request.user))
+
+class DomainMembersView(ListCreateAPIView):
+    serializer_class = UserDetailsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user_model = User.objects.get(username=self.request.user)
+        user_details_model = UserDetails.objects.get(user=user_model.id)
+        domain_id = user_details_model.domain.id
+        dir_appointment_id = 4
+        print(domain_id)
+        return UserDetails.objects.filter(Q(domain=domain_id) | Q(appointment=dir_appointment_id))
