@@ -18,7 +18,9 @@ class CaseListView(ListCreateAPIView):
         print("get request")
         # user = User.objects.filter(username=self.request.user)
         # print(user)
-        return Case.objects.filter(Q(staffer=self.request.user) | Q(current_res_party=self.request.user))
+        # return Case.objects.filter(Q(steps__staffer=self.request.user) | Q(steps__res_party=self.request.user))
+        return Case.objects.filter(steps__res_party=self.request.user).distinct()
+
 
 class CaseDetailsView(RetrieveUpdateDestroyAPIView):
     serializer_class = CaseSerializer
