@@ -88,19 +88,19 @@ class Case(models.Model):
 
 class Step(models.Model):
     STAGE = (
-        ('planning', 'Planning'),
-        ('bidding', 'Bidding'),
-        ('approval', 'Approval'),
-        ('contracting','Contracting')
+        ('1. planning', '1. Planning'),
+        ('2. bidding', '2. Bidding'),
+        ('3. approval', '3. Approval'),
+        ('4. contracting','4. Contracting')
     )
 
     STEP = (
-        ('drafting','Drafting'),
-        ('vetting','Vetting'),
-        ('support1','Support1'),
-        ('support2','Support2'),
-        ('completed','Completed'),
-        ('cancelled','Cancelled')
+        ('1. drafting','1. Drafting'),
+        ('2. vetting','2. Vetting'),
+        ('3. support1','3. Support1'),
+        ('4. support2','4. Support2'),
+        ('5. completed','5. Completed'),
+        ('6. cancelled','6. Cancelled')
     )
 
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name="steps")
@@ -115,7 +115,7 @@ class Step(models.Model):
         return "Step ID: " + str(self.id)
     
     class Meta:
-        ordering = ["created_date"]
+        ordering = ["case", "stage", "step"]
 
 class Comment(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE)
